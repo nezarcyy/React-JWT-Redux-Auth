@@ -13,7 +13,7 @@ function Signup() {
                 <header className="">
                     <nav class="bg-black border-gray-500 px-4 lg:px-6 py-2.5">
                         <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
-                            <a class="flex items-center">
+                            <a href="https://nextierlab.co" class="flex items-center">
                                 <img src="./nextierlab-logo.svg" class="mr-3 h-8" alt="Nextierlab Logo" />
                             </a>
                             <div class="flex items-center lg:order-2">
@@ -72,7 +72,7 @@ function Signup() {
                                             <input id="remember" aria-describedby="remember" type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800" required=""></input>
                                         </div>
                                         <div class="ml-3 text-sm">
-                                            <label for="remember" class="text-gray-500 dark:text-gray-300">I have read and agree to the <a href="https://nextierlab.co/terms-of-use" target="_blank" class="font-medium text-yellow-400 hover:underline dark:text-primary-500">Terms and Conditions.</a></label>
+                                            <label for="remember" class="text-gray-500 dark:text-gray-300">I have read and agree to the <a href="https://nextierlab.co/terms-of-use" target="_blank" rel="noreferrer" class="font-medium text-yellow-400 hover:underline dark:text-primary-500">Terms and Conditions.</a></label>
                                         </div>
                                     </div>
                                 </div>

@@ -1,5 +1,4 @@
 import Footer from "./ui/footer";
-import React, { useContext } from 'react'
 
 
 function Activated() {
@@ -12,7 +11,7 @@ function Activated() {
                 <header className="">
                     <nav class="bg-black border-gray-500 px-4 lg:px-6 py-2.5">
                         <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
-                            <a class="flex items-center">
+                            <a href="https://nextierlab.co" class="flex items-center">
                                 <img src="./nextierlab-logo.svg" class="mr-3 h-8" alt="Nextierlab Logo" />
                             </a>
                             <div class="flex items-center lg:order-2"></div>
