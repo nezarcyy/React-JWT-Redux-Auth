@@ -1,26 +1,30 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Dashboard from './dashboard/dashboard';
-import Signin from './pages/signin';
+import Login from './pages/login';
 import Signup from './pages/signup';
 import Recovery from './pages/recovery';
 import Newpass from './pages/newpassword';
 import Activated from './pages/activated';
+import { Provider } from 'react-redux';
+import store from './store';
 
 
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path='/' element={<Dashboard />} />
-        <Route path='/signin' element={<Signin />} />
-        <Route path='/signup' element={<Signup />} />
-        <Route path='/reset-password' element={<Recovery />} />
-        <Route path='/password/reset/confirm' element={<Newpass />} />
-        <Route path='/activate' element={<Activated />} />
-      </Routes>
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <Routes>
+          <Route exact path='/' element={<Dashboard />} />
+          <Route exact path='/login' element={<Login />} />
+          <Route exact path='/signup' element={<Signup />} />
+          <Route exact path='/reset-password' element={<Recovery />} />
+          <Route exact path='/password/reset/confirm/:uid/:token' element={<Newpass />} />
+          <Route exact path='/activate/:uid/:token' element={<Activated />} />
+        </Routes>
+      </Router>
+    </Provider>
   );
 }
 
