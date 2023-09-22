@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
@@ -134,6 +135,7 @@ export const signup = (full_name, email, password, re_password) => async dispatc
 };
 
 export const verify = (uid, token) => async dispatch => {
+    
     const config = {
         headers: {
             'Content-Type': 'application/json'

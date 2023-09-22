@@ -1,7 +1,25 @@
 import Footer from "./ui/footer";
+import React, { useState } from 'react';
+import { Navigate, useParams } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { verify } from '../context/auth';
 
 
-function Activated() {
+function Activated({ verify, match }) {
+
+    const [verified, setVerified] = useState(false);
+    const { uid, token } = useParams();
+
+    const verify_account = e => {
+        
+        verify(uid, token);
+        setVerified(true);
+    };
+
+    if (verified) {
+        return <Navigate to='/' />
+    }
+
 
 
     return (
@@ -24,7 +42,15 @@ function Activated() {
 
                 <div class="flex flex-col items-left justify-left px-6 py-8 mx-auto lg:ml-96 lg:mr-96 lg:mt-56 lg:mb-56 mt-40 mb-44">
 
+                <button
+                    onClick={verify_account}
+                    type='button'
+                    className='btn btn-primary'
+                >
+                    Verify
+                </button>
 
+                    
 
                 </div>
                 <Footer />
@@ -33,4 +59,4 @@ function Activated() {
     );
 }
 
-export default Activated;
+export default connect(null, { verify })(Activated);
