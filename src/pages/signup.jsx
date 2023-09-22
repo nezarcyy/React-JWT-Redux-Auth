@@ -1,9 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Navigate } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { signup } from '../context/auth';
 import Footer from './ui/footer';
 
 
-function Signup() {
-    
+function Signup({ signup, isAuthenticated }) {
+    const [accountCreated, setAccountCreated] = useState(false);
+    const [formData, setFormData] = useState({
+        full_name: '',
+        email: '',
+        password: '',
+        re_password: ''
+    });
+
+    const { full_name, email, password, re_password } = formData;
+
+    const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+
+    const onSubmit = e => {
+        e.preventDefault();
+
+        if (password === re_password) {
+            signup(full_name, email, password, re_password);
+            setAccountCreated(true);
+        }
+    };
+
+    if (isAuthenticated) {
+        return <Navigate to='/' />
+    }
+    if (accountCreated) {
+        return <Navigate to='/login' />
+    }
 
     return (
         <div>
@@ -33,36 +62,56 @@ function Signup() {
                             <h2 class="text-left text-base font-normal text-white mb-10 tracking-tight text-gray-900 md:text-2xl">
                                 Get started by creating your account below.
                             </h2>
-                            <form class="space-y-4 md:space-y-6" action="#">
+                            <form class="space-y-4 md:space-y-6" onSubmit={e => onSubmit(e)}>
                                 <div>
                                     <label for="fname" class="text-left block mb-1 text-sm font-medium text-gray-900 dark:text-white">Your name</label>
-                                    <input class="p-3 peer w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500" placeholder="E.g. John Doe" type="text"
+                                    <input class="p-3 peer w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500" 
+                                        placeholder="E.g. John Doe" 
+                                        type="text"
                                         id="full_name"
                                         name="full_name"
-                                        required></input>
+                                        required
+                                        value={full_name}
+                                        onChange={e => onChange(e)}
+                                    ></input>
 
                                 </div>
                                 <div>
                                     <label for="email" class="text-left block mb-1 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
-                                    <input class="p-3 peer w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500" placeholder="name@company.com" type="email"
+                                    <input class="p-3 peer w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500" 
+                                        placeholder="name@company.com" 
+                                        type="email"
                                         id="email"
                                         name="email"
-                                        required></input>
+                                        required
+                                        value={email}
+                                        onChange={e => onChange(e)}
+                                    ></input>
 
                                 </div>
                                 <div>
                                     <label for="password" class="text-left block mb-1 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                                    <input placeholder="••••••••" class="p-3 peer w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500" type="password"
+                                    <input class="p-3 peer w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500" 
+                                        placeholder="••••••••"
+                                        type="password"
                                         id="password"
                                         name="password"
+                                        value={password}
+                                        onChange={e => onChange(e)}
+                                        minLength='8'
                                         required></input>
 
                                 </div>
                                 <div>
                                     <label for="confirmpassword" class="text-left block mb-1 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label>
-                                    <input placeholder="••••••••" class="p-3 peer w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500" type="password"
-                                        id="password2"
-                                        name="password2"
+                                    <input class="p-3 peer w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500" 
+                                        type="password"
+                                        placeholder="••••••••"
+                                        id="re_password"
+                                        name="re_password"
+                                        value={re_password}
+                                        onChange={e => onChange(e)}
+                                        minLength='8'
                                         required></input>
 
                                 </div>
@@ -87,4 +136,8 @@ function Signup() {
     );
 }
 
-export default Signup;
+const mapStateToProps = state => ({
+    isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(mapStateToProps, { signup })(Signup);
