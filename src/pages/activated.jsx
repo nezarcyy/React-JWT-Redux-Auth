@@ -3,15 +3,23 @@ import React, { useState } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { verify } from '../context/auth';
+import ReCAPTCHA from "react-google-recaptcha";
 
 
-function Activated({ verify, match }) {
 
+function Activated({ verify }) {
+
+    const [isCaptchaSuccessful, setIsCaptchaSuccess] = React.useState(false)
     const [verified, setVerified] = useState(false);
     const { uid, token } = useParams();
 
+    function onChange(value) {
+        setIsCaptchaSuccess(true)
+        console.log("captcha value: ", value);
+    }
+
     const verify_account = e => {
-        
+
         verify(uid, token);
         setVerified(true);
     };
@@ -39,18 +47,21 @@ function Activated({ verify, match }) {
 
 
 
-
                 <div class="flex flex-col items-left justify-left px-6 py-8 mx-auto lg:ml-96 lg:mr-96 lg:mt-56 lg:mb-56 mt-40 mb-44">
 
-                <button
-                    onClick={verify_account}
-                    type='button'
-                    className='btn btn-primary'
-                >
-                    Verify
-                </button>
+                    <ReCAPTCHA
+                        sitekey={process.env.REACT_APP_SITE_KEY}
+                        onChange={onChange}
+                    />
 
-                    
+                    <button
+                        onClick={verify_account}
+                        type='button'
+                        className='btn btn-primary'
+                        disabled={!isCaptchaSuccessful}
+                    >
+                        Verify
+                    </button>
 
                 </div>
                 <Footer />

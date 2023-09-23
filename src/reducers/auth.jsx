@@ -36,7 +36,7 @@ export default function(state = initialState, action) {
         case SIGNUP_SUCCESS:
             return {
                 ...state,
-                isAuthenticated: false
+                isAuthenticated: true
             }
         case USER_LOADED_SUCCESS:
             return {

@@ -36,9 +36,6 @@ function Login({ login, isAuthenticated }) {
                             <a href="https://nextierlab.co" class="flex items-center">
                                 <img src="./nextierlab-logo.svg" class="mr-3 h-8" alt="Nextierlab Logo" />
                             </a>
-                            <div class="flex items-center lg:order-2">
-                                <a href="/signup" class="text-white focus:ring-4 border border-yellow-400 focus:ring-yellow-400 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-primary-600 focus:outline-none dark:focus:ring-primary-800">Sign up</a>
-                            </div>
                         </div>
                     </nav>
                 </header>
@@ -56,17 +53,17 @@ function Login({ login, isAuthenticated }) {
                             <form class="space-y-4 md:space-y-6" action="#" onSubmit={e => onSubmit(e)}>
                                 <div>
                                     <label for="email" class="text-left block mb-1 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
-                                    <input type="email" name='email' id="form2Example17" class="p-3 peer w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500" placeholder="name@company.com" required 
-                                    value={email}
-                                    onChange={e => onChange(e)}
+                                    <input type="text" name='email' id="form2Example17" class="p-3 peer w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500" placeholder="name@company.com" required
+                                        value={email}
+                                        onChange={e => onChange(e)}
                                     ></input>
                                 </div>
                                 <div>
                                     <label for="password" class="text-left block mb-1 text-sm font-medium text-gray-900 dark:text-white">Password</label>
                                     <input type="password" name='password' id="form2Example27" placeholder="••••••••" class="p-3 peer w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500" required
-                                    value={password}
-                                    onChange={e => onChange(e)}
-                                    minLength='8'
+                                        value={password}
+                                        onChange={e => onChange(e)}
+                                        minLength='8'
                                     ></input>
                                 </div>
                                 <div class="flex items-center justify-between">
