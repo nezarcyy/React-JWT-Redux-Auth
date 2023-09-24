@@ -11,6 +11,7 @@
     "cors": "^2.8.5",
     "flowbite": "^1.8.1",
     "flowbite-react": "^0.6.0",
+    "loadjs": "^4.3.0-rc1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-google-recaptcha": "^3.1.0",

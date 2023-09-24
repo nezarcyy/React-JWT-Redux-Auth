@@ -27,9 +27,6 @@ function Signup({ signup, isAuthenticated }) {
         }
     };
 
-    if (isAuthenticated) {
-        return <Navigate to='/' />
-    }
     if (accountCreated) {
         return <Navigate to='/login' />
     }
