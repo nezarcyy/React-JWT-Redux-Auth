@@ -107,16 +107,18 @@ function Activated({ verify }) {
 
 
 
-                <div className="flex flex-col items-left justify-left px-6 py-8 mx-auto lg:ml-96 lg:mr-96 lg:mt-56 lg:mb-56 mt-40 mb-44">
+                <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:ml-96 lg:mr-96 lg:mt-56 lg:mb-56 mt-40 mb-44">
 
-                    <button
-                        className="text-white border border-yellow-400 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-primary-600 focus:outline-none"
-                        onClick={verify_account}
-                        type='button'
-                        disabled={loading}
-                    >
-                        {loading ? 'Verifying...' : 'Verify'}
-                    </button>
+                    <div className="">
+                        <button
+                            className="text-white border border-yellow-400 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-primary-600 focus:outline-none"
+                            onClick={verify_account}
+                            type='button'
+                            disabled={loading}
+                        >
+                            {loading ? 'Verifying...' : 'Verify'}
+                        </button>
+                    </div>
 
                     {response && <label>Output:<br /><pre>{JSON.stringify(response, undefined, 2)}</pre></label>}
 
