@@ -20,6 +20,7 @@ const initialState = {
     access: localStorage.getItem('access'),
     refresh: localStorage.getItem('refresh'),
     isAuthenticated: null,
+    isVerified: null,
     user: null
 };
 
@@ -32,8 +33,12 @@ export default function(state = initialState, action) {
                 ...state,
                 isAuthenticated: true
             }
-        case LOGIN_SUCCESS:
         case SIGNUP_SUCCESS:
+            return {
+                ...state,
+                isAuthenticated: false
+            }
+        case LOGIN_SUCCESS:
             return {
                 ...state,
                 isAuthenticated: true
