@@ -7,7 +7,7 @@ import Recovery from './pages/recovery';
 import Newpass from './pages/newpassword';
 import Activated from './pages/activated';
 import { Provider } from 'react-redux';
-import store from './store';
+import store from './stores/store';
 
 
 

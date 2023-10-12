@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
 import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
@@ -209,3 +208,7 @@ export const logout = () => dispatch => {
         type: LOGOUT
     });
 };
+
+const authService = { load_user, verify, signup, login, logout, reset_password, reset_password_confirm, checkAuthenticated }
+
+export default authService

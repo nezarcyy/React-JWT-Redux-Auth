@@ -16,12 +16,14 @@ import {
     LOGOUT
 } from '../context/types';
 
+const user = JSON.parse(localStorage.getItem("user"))
+
 const initialState = {
     access: localStorage.getItem('access'),
     refresh: localStorage.getItem('refresh'),
     isAuthenticated: null,
     isVerified: null,
-    user: null
+    user: user ? user : null,
 };
 
 export default function(state = initialState, action) {
