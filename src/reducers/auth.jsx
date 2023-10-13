@@ -16,20 +16,19 @@ import {
     LOGOUT
 } from '../context/types';
 
-const user = JSON.parse(localStorage.getItem("user"))
-
 const initialState = {
     access: localStorage.getItem('access'),
     refresh: localStorage.getItem('refresh'),
     isAuthenticated: null,
     isVerified: null,
-    user: user ? user : null,
+    user: null,
+    activationError: null,
 };
 
-export default function(state = initialState, action) {
+export default function (state = initialState, action) {
     const { type, payload } = action;
 
-    switch(type) {
+    switch (type) {
         case AUTHENTICATED_SUCCESS:
             return {
                 ...state,
@@ -43,7 +42,8 @@ export default function(state = initialState, action) {
         case LOGIN_SUCCESS:
             return {
                 ...state,
-                isAuthenticated: true
+                isAuthenticated: true,
+                activationError: null,
             }
         case USER_LOADED_SUCCESS:
             return {
@@ -70,7 +70,8 @@ export default function(state = initialState, action) {
                 access: null,
                 refresh: null,
                 isAuthenticated: false,
-                user: null
+                user: null,
+                activationError: null,
             }
         case PASSWORD_RESET_SUCCESS:
         case PASSWORD_RESET_FAIL:
@@ -79,7 +80,8 @@ export default function(state = initialState, action) {
         case ACTIVATION_SUCCESS:
         case ACTIVATION_FAIL:
             return {
-                ...state
+                ...state,
+                activationError: 'User account is not activated',
             }
         default:
             return state

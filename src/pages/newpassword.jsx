@@ -1,7 +1,33 @@
 import Footer from "./ui/footer";
-import React from 'react';
+import React, { useState } from 'react';
+import { Navigate } from "react-router-dom";
+import { connect } from "react-redux";
+import { reset_password_confirm } from "../context/auth";
 
-function Newpass() {
+function Newpass({ match, reset_password_confirm }) {
+    const [requestSent, setRequestSent] = useState(false);
+    const [formData, setFormData] = useState({
+        new_password: '',
+        re_new_password: ''
+    });
+
+    const { new_password, re_new_password } = formData;
+
+    const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+
+    const onSubmit = e => {
+        e.preventDefault();
+
+        const uid = match.params.uid;
+        const token = match.params.token;
+
+        reset_password_confirm(uid, token, new_password, re_new_password);
+        setRequestSent(true);
+    };
+
+    if (requestSent) {
+        return <Navigate to='/login' />
+    }
     
 
     return (
@@ -29,14 +55,20 @@ function Newpass() {
                             <h2 class="text-left text-base font-normal text-white mb-10 tracking-tight text-gray-900 md:text-2xl">
                                 You're almost there! Please enter your new password below
                             </h2>
-                            <form class="space-y-4 md:space-y-6" action="#">
+                            <form class="space-y-4 md:space-y-6" action="#" onSubmit={e => onSubmit(e)}>
                                 <div>
                                     <label for="password" class="text-left block mb-1 text-sm font-medium text-gray-900 dark:text-white">New password</label>
-                                    <input type="password" name="password" id="password" placeholder="••••••••" class="p-3 peer w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500" required=""/>
+                                    <input type="password" name="new_password" id="password" placeholder="••••••••" class="p-3 peer w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500" required=""
+                                    value={new_password}
+                                    onChange={e => onChange(e)}
+                                    />
                                 </div>
                                 <div>
                                     <label for="confirmPassword" class="text-left block mb-1 text-sm font-medium text-gray-900 dark:text-white">Confirm new password</label>
-                                    <input type="password" name="confirmPassword" id="confirmPassword" placeholder="••••••••" class="p-3 peer w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500" required=""/>
+                                    <input type="password" name="re_new_password" id="confirmPassword" placeholder="••••••••" class="p-3 peer w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500" required=""
+                                    value={re_new_password}
+                                    onChange={e => onChange(e)}
+                                    />
                                 </div>
                                 <button type="submit" class="lg:w-96 mb-2 py-3 px-5 w-full rounded-lg text-sm font-medium text-center text-black border-yellow-300 cursor-pointer bg-yellow-400 hover:bg-yellow-300 focus:ring-4 focus:ring-yellow-400 disabled:bg-yellow-300 disabled:pointer-events-none">Update password</button>
                             </form>
@@ -49,4 +81,4 @@ function Newpass() {
     );
 }
 
-export default Newpass;
+export default connect(null, { reset_password_confirm })(Newpass);

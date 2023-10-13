@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { login } from '../context/auth';
 
 
-function Login({ login, isAuthenticated }) {
+function Login({ login, isAuthenticated, activationError }) {
 
     const [formData, setFormData] = useState({
         email: '',
@@ -79,13 +79,20 @@ function Login({ login, isAuthenticated }) {
                                 </div>
                                 <button type="submit" className="lg:w-96 mb-2 py-3 px-5 w-full rounded-lg text-sm font-medium text-center text-black border-yellow-300 cursor-pointer bg-yellow-400 hover:bg-yellow-300 focus:ring-4 focus:ring-yellow-400">Sign in</button>
                             </form>
+
+                            {activationError && (
+                                <div className="text-red-500">
+                                    {activationError}
+                                </div>
+                            )}
+
                         </div>
                     </div>
                 </div>
                 <Footer />
 
 
-                
+
             </section>
         </div>
 

@@ -28,7 +28,7 @@ export const load_user = () => async dispatch => {
         };
         try {
             const result = await axios.get(`${process.env.REACT_APP_API_URL}/auth/users/me/`, config);
-    
+
             dispatch({
                 type: USER_LOADED_SUCCESS,
                 payload: result.data
@@ -48,28 +48,37 @@ export const load_user = () => async dispatch => {
 export const login = (email, password) => async dispatch => {
     const config = {
         headers: {
-            'Content-Type': 'application/json'
-        }
+            'Content-Type': 'application/json',
+        },
     };
 
     const body = JSON.stringify({ email, password });
 
     try {
-        const result = await axios.post(`${process.env.REACT_APP_API_URL}/auth/jwt/create/`, body, config);
+        const response = await axios.post(
+            `${process.env.REACT_APP_API_URL}/auth/jwt/create/`,
+            body,
+            config
+        );
 
         dispatch({
             type: LOGIN_SUCCESS,
-            payload:  result.data
+            payload: response.data,
         });
-        
-        dispatch(load_user());
-        
+
+        // Check if the user is not activated
+        if (response.data.detail === 'User account is not activated.') {
+            dispatch({
+                type: ACTIVATION_FAIL, // Dispatch activation failure action
+            });
+        } else {
+            dispatch(load_user());
+        }
     } catch (error) {
         dispatch({
-            type: LOGIN_FAIL
+            type: LOGIN_FAIL,
         });
     }
-
 };
 
 export const checkAuthenticated = () => async dispatch => {
@@ -86,7 +95,7 @@ export const checkAuthenticated = () => async dispatch => {
 
         try {
             const response = await axios.post(`${process.env.REACT_APP_API_URL}/auth/jwt/verify/`, body, config);
-            
+
             if (response.data.code !== 'token_not_valid') {
                 dispatch({
                     type: AUTHENTICATED_SUCCESS
@@ -134,7 +143,7 @@ export const signup = (full_name, email, password, re_password) => async dispatc
 };
 
 export const verify = (uid, token) => async dispatch => {
-    
+
     const config = {
         headers: {
             'Content-Type': 'application/json'
@@ -172,7 +181,7 @@ export const reset_password = (email) => async dispatch => {
             type: PASSWORD_RESET_SUCCESS
         });
     } catch (error) {
-        
+
         dispatch({
             type: PASSWORD_RESET_FAIL
         });

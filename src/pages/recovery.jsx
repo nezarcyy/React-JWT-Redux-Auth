@@ -1,6 +1,30 @@
+import React, { useState } from 'react';
+import { Navigate } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { reset_password } from '../context/auth';
 import Footer from "./ui/footer";
 
-function Recovery() {
+function Recovery({ reset_password }) {
+
+    const [requestSent, setRequestSent] = useState(false);
+    const [formData, setFormData] = useState({
+        email: ''
+    });
+
+    const { email } = formData;
+
+    const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+
+    const onSubmit = e => {
+        e.preventDefault();
+
+        reset_password(email);
+        setRequestSent(true);
+    };
+
+    if (requestSent) {
+        return <Navigate to='/login' />
+    }
 
     return (
         <div>
@@ -30,12 +54,15 @@ function Recovery() {
                             <h2 class="text-left text-base font-normal text-white mb-10 tracking-tight text-gray-900 md:text-2xl">
                                 You will recieve a new password by email
                             </h2>
-                            <form class="space-y-4 md:space-y-6" action="#">
+                            <form class="space-y-4 md:space-y-6" action="#" onSubmit={e => onSubmit(e)}>
                                 <div>
                                     <label for="email" class="text-left block mb-1 text-sm font-medium text-gray-900 dark:text-white">Enter email</label>
-                                    <input type="email" name="email" id="email" class="p-3 peer w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500" placeholder="name@company.com" required=""></input>
+                                    <input type="email" name="email" id="email" class="p-3 peer w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500" placeholder="name@company.com" required=""
+                                    value={email}
+                                    onChange={e => onChange(e)}
+                                    ></input>
                                 </div>
-                                
+
                                 <button type="submit" class="lg:w-96 mb-2 py-3 px-5 w-full rounded-lg text-sm font-medium text-center text-black border-yellow-300 cursor-pointer bg-yellow-400 hover:bg-yellow-300 focus:ring-4 focus:ring-yellow-400">Send</button>
                             </form>
                         </div>
@@ -47,4 +74,4 @@ function Recovery() {
     );
 }
 
-export default Recovery;
+export default connect(null, { reset_password })(Recovery);
