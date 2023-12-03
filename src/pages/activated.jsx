@@ -52,13 +52,13 @@ function Activated({ verify }) {
 
                 <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:ml-96 lg:mr-96 lg:mt-56 lg:mb-56 mt-40 mb-44">
                     <div className="items-center justify-center">
-                        <h1 class="mb-1 lgtext-left text-2xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                        <h1 class="mb-1 text-left text-2xl font-bold mt-10 leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                             Your account has been successfully verified!
                         </h1>
                     </div>
 
                     <div className="items-center justify-center">
-                        <h2 class="text-left text-base font-normal text-white mb-10 tracking-tight text-gray-900 md:text-2xl">
+                        <h2 class="text-left text-base font-normal text-white mb-16 tracking-tight text-gray-900 md:text-2xl">
                             Thank you for verifying your account. You can now access all the features and services provided by our platform.
                         </h2>
                     </div>

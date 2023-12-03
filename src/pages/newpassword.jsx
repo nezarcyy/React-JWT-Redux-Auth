@@ -1,10 +1,13 @@
 import Footer from "./ui/footer";
 import React, { useState } from 'react';
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 import { reset_password_confirm } from "../context/auth";
 
 function Newpass({ match, reset_password_confirm }) {
+
+    const Navigate = useNavigate();
+
     const [requestSent, setRequestSent] = useState(false);
     const [formData, setFormData] = useState({
         new_password: '',
@@ -39,7 +42,7 @@ function Newpass({ match, reset_password_confirm }) {
                     <nav class="bg-black border-gray-500 px-4 lg:px-6 py-2.5">
                         <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
                             <a href="https://nextierlab.co" class="flex items-center">
-                                <img src="./nextierlab-logo.svg" class="mr-3 h-8" alt="Nextierlab Logo" />
+                                <img src={`/${'./nextierlab-logo.svg'}`} class="mr-3 h-8" alt="Nextierlab Logo" />
                             </a>
                         </div>
                     </nav>
